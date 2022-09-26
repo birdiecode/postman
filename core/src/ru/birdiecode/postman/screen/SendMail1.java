@@ -36,13 +36,13 @@ public class SendMail1 implements Screen {
         batch = new SpriteBatch();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(new Vector3(Gdx.graphics.getWidth()/2+(Gdx.graphics.getWidth()*0), Gdx.graphics.getHeight()/2, 0));
-        Gdx.input.setInputProcessor(new SendMail1InputController(camera));
+
         img = new Texture("screen_sendmail1_background.jpg");
         img2 = new Texture("screen_sendmail1_box.png");
         wh = Gdx.graphics.getWidth()/6*5;
         ht = wh/9*5;
-        font = new BitmapFont(Gdx.files.internal("font/1.fnt"),
-                Gdx.files.internal("font/1.png"), false);
+        font = new BitmapFont(Gdx.files.internal("font/2.fnt"),
+                Gdx.files.internal("font/2.png"), false);
 
 
         for (int i = 0; i < boxes.length; i++) {
@@ -50,6 +50,7 @@ public class SendMail1 implements Screen {
             boxes[i].setBounds((Gdx.graphics.getWidth() - wh)/2 + ((int) i/2 )*Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-ht*(i%2==1 ? 1 : 2)-ht/2, wh, ht); //9:5
         }
 
+        Gdx.input.setInputProcessor(new SendMail1InputController(camera));
     }
 
     @Override
