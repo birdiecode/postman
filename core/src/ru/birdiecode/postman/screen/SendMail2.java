@@ -11,6 +11,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import ru.birdiecode.postman.input.SendMail1InputController;
+import ru.birdiecode.postman.intrafaces.MailInterface;
+import ru.birdiecode.postman.object.MailColor;
+import ru.birdiecode.postman.object.MailLine;
 
 public class SendMail2 implements Screen {
     Game game;
@@ -21,6 +24,7 @@ public class SendMail2 implements Screen {
     Sprite boxes[] = new Sprite[10];
     int gb_wh;
     int gb_ht;
+    MailInterface mail = new MailLine(MailLine.TEXTURE4, MailLine.MAIL_RED, "дом 3 \nкв. 45");
 
 
     public SendMail2(Game game){
@@ -46,6 +50,8 @@ public class SendMail2 implements Screen {
         }
 
         Gdx.input.setInputProcessor(new SendMail1InputController(camera));
+        mail.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/8);
+
     }
 
     @Override
@@ -57,6 +63,8 @@ public class SendMail2 implements Screen {
         batch.begin();
         batch.draw(texturebg, 0, 0, Gdx.graphics.getWidth()*10, Gdx.graphics.getHeight());
         for (Sprite wbox:boxes) wbox.draw(batch);
+        mail.setPosition(camera.position.x, camera.position.y-Gdx.graphics.getHeight()/3);
+        mail.draw(batch);
         batch.end();
     }
 
