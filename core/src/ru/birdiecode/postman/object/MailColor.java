@@ -13,7 +13,7 @@ public class MailColor implements MailInterface {
     public static String MAIL_GREEN  = "mail_green.png";
     public static String MAIL_ORANGE = "mail_orange.png";
     public static String MAIL_PAPER  = "mail_paper.png";
-    public static String MAIL_PURPLE = "mail_purpel.png";
+    public static String MAIL_PURPLE = "mail_purple.png";
     public static String MAIL_RED    = "mail_red.png";
     public static String MAIL_YELLOW = "mail_yellow.png";
 
@@ -30,6 +30,8 @@ public class MailColor implements MailInterface {
     private final float width;
     private final float height;
 
+    private boolean movestatus;
+
 
     public MailColor(String texture, String mail, String address) {
         this.texture = new Sprite(new Texture("mail/color/" + texture));
@@ -37,8 +39,18 @@ public class MailColor implements MailInterface {
         font = new BitmapFont(Gdx.files.internal("font/8.fnt"),
                 Gdx.files.internal("font/8.png"), false);
         this.address = address;
-        width = Gdx.graphics.getWidth()/2.5f;
-        height = width/556*286;
+        width = 350;
+        height = 179;
+    }
+
+    @Override
+    public boolean isMoving() {
+        return movestatus;
+    }
+
+    @Override
+    public void setMove(boolean s) {
+        this.movestatus = s;
     }
 
     @Override
@@ -54,4 +66,10 @@ public class MailColor implements MailInterface {
         texture.draw(batch);
         font.draw(batch,address, mail.getX()+mail.getWidth()/3, mail.getY()+50);
     }
+
+    @Override
+    public void dispose() {
+    }
+
+
 }

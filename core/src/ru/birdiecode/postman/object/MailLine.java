@@ -31,6 +31,7 @@ public class MailLine implements MailInterface {
     BitmapFont font;
     private float width;
     private float height;
+    private boolean movestatus;
 
     public MailLine(String texture, String mail, String address) {
         this.texture = new Sprite(new Texture("mail/line/" + texture));
@@ -50,9 +51,24 @@ public class MailLine implements MailInterface {
     }
 
     @Override
+    public boolean isMoving() {
+        return this.movestatus;
+    }
+
+    @Override
+    public void setMove(boolean s) {
+        this.movestatus = s;
+    }
+
+    @Override
     public void draw(SpriteBatch batch) {
         mail.draw(batch);
         texture.draw(batch);
         font.draw(batch,address, mail.getX()+mail.getWidth()/1.9f, mail.getY()+mail.getHeight()/2.2f);
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }
