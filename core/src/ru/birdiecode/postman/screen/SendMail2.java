@@ -128,13 +128,13 @@ public class SendMail2 implements Screen {
             mails.get(mails.size()-1).setMove(false);
             if (screenY>900) {
                 if (screenX> camera.position.x) {
-                    MailInterface temp = mails.get(mails.size() - 1);
-                    mails.remove(temp);
-                    mails.add(0, temp);
-                } else {
                     MailInterface temp = mails.get(0);
                     mails.remove(temp);
                     mails.add(temp);
+                } else {
+                    MailInterface temp = mails.get(mails.size() - 1);
+                    mails.remove(temp);
+                    mails.add(0, temp);
                 }
             }
             return false;
@@ -169,11 +169,13 @@ public class SendMail2 implements Screen {
 
         for (int i = 0; i < boxLists.length; i++) {
             boxLists[i] = new BoxList(i*4+1, i*4+2, i*4+3, i*4+4);
-            boxLists[i].setPosition(widthCamera/2, heightCamera/9*8);
+            boxLists[i].setPosition(widthCamera/2+widthCamera*i, heightCamera/9*8);
         }
+        int i = 3;
         for (MailInterface m :
                 this.mails) {
-            m.setPosition(widthCamera / 2, heightCamera / 9);
+            m.setPosition((widthCamera / 2)+i, heightCamera / 9);
+            i+=100;
         }
     }
 

@@ -10,6 +10,7 @@ import ru.birdiecode.postman.object.MailColor;
 import ru.birdiecode.postman.object.MailWax;
 import ru.birdiecode.postman.screen.SendMail1;
 import ru.birdiecode.postman.screen.SendMail2;
+import ru.birdiecode.postman.screen.Splash;
 
 public class Main extends Game {
 
@@ -28,6 +29,7 @@ public class Main extends Game {
 
 
 
-		setScreen(new SendMail2(this, mails));
+		//setScreen(new SendMail2(this, mails));
+		setScreen(new Splash(this, mails));
 	}
 }
