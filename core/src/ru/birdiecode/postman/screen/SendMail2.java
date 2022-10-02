@@ -51,7 +51,7 @@ public class SendMail2 implements Screen {
 
         @Override
         public boolean statementRegion(float x, float y) {
-            return y<900;
+            return y < 900;
         }
 
         @Override
@@ -66,12 +66,15 @@ public class SendMail2 implements Screen {
         @Override
         public boolean touchUp(int screenX, int screenY, int pointer, int button) {
             camScrol = true;
-            if(!(camera.position.x-camera.viewportWidth/2 == 0 && lx-screenX < 0) && !(camera.position.x-camera.viewportWidth/2 == camera.viewportWidth*9 && lx-screenX > 0)) {
+            if (!(camera.position.x - camera.viewportWidth / 2 == 0 && lx - screenX < 0) && !(camera.position.x - camera.viewportWidth / 2 == camera.viewportWidth * 9 && lx - screenX > 0)) {
                 if (rx > camera.viewportWidth / 3) {
                     settingCamPos = cx + camera.viewportWidth;
                 } else if (-rx > camera.viewportWidth / 3) {
                     settingCamPos = cx - camera.viewportWidth;
                 } else settingCamPos = cx;
+            }
+            else{
+                camScrol = false;
             }
             lx = 0;
             return false;
@@ -88,9 +91,9 @@ public class SendMail2 implements Screen {
             return false;
         }
 
-        void movingCamera(){
+        void movingCamera() {
             if (camScrol) {
-                if(camera.position.x == settingCamPos) camScrol = false;
+                if (camera.position.x == settingCamPos) camScrol = false;
                 else {
                     if (Math.abs(camera.position.x - settingCamPos) > 50) {
                         if (camera.position.x > settingCamPos) camera.position.x -= 50;
@@ -102,7 +105,7 @@ public class SendMail2 implements Screen {
         }
     }
 
-    private static class MailSwipe implements ObjectDirectorInterface{
+    private static class MailSwipe implements ObjectDirectorInterface {
         List<MailInterface> mails;
         OrthographicCamera camera;
 
@@ -113,21 +116,21 @@ public class SendMail2 implements Screen {
 
         @Override
         public boolean statementRegion(float x, float y) {
-            return y>900;
+            return y > 900;
         }
 
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            mails.get(mails.size()-1).setMove(true);
+            mails.get(mails.size() - 1).setMove(true);
             return false;
         }
 
         @Override
         public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-            mails.get(mails.size()-1).setPosition(camera.position.x, camera.viewportHeight / 9);
-            mails.get(mails.size()-1).setMove(false);
-            if (screenY>900) {
-                if (screenX> camera.position.x) {
+            mails.get(mails.size() - 1).setPosition(camera.position.x, camera.viewportHeight / 9);
+            mails.get(mails.size() - 1).setMove(false);
+            if (screenY > 900) {
+                if (screenX > camera.position.x) {
                     MailInterface temp = mails.get(0);
                     mails.remove(temp);
                     mails.add(temp);
@@ -142,12 +145,12 @@ public class SendMail2 implements Screen {
 
         @Override
         public boolean touchDragged(int screenX, int screenY, int pointer) {
-            mails.get(mails.size()-1).setPosition(camera.position.x - camera.viewportWidth/2 +screenX, camera.viewportHeight - screenY);
+            mails.get(mails.size() - 1).setPosition(camera.position.x - camera.viewportWidth / 2 + screenX, camera.viewportHeight - screenY);
             return false;
         }
     }
 
-    public SendMail2(Game game, List<MailInterface> mails){
+    public SendMail2(Game game, List<MailInterface> mails) {
         this.game = game;
         this.mails = mails;
     }
@@ -157,7 +160,7 @@ public class SendMail2 implements Screen {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         viewport = new FitViewport(widthCamera, heightCamera, camera);
-        camera.position.set(new Vector3(widthCamera/2, heightCamera/2, 0));
+        camera.position.set(new Vector3(widthCamera / 2, heightCamera / 2, 0));
 
         texturebg = new Texture("screen_sendmail2_background.jpg");
 
@@ -168,14 +171,14 @@ public class SendMail2 implements Screen {
         Gdx.input.setInputProcessor(icm);
 
         for (int i = 0; i < boxLists.length; i++) {
-            boxLists[i] = new BoxList(i*4+1, i*4+2, i*4+3, i*4+4);
-            boxLists[i].setPosition(widthCamera/2+widthCamera*i, heightCamera/9*8);
+            boxLists[i] = new BoxList(i * 4 + 1, i * 4 + 2, i * 4 + 3, i * 4 + 4);
+            boxLists[i].setPosition(widthCamera / 2 + widthCamera * i, heightCamera / 9 * 8);
         }
         int i = 3;
         for (MailInterface m :
                 this.mails) {
-            m.setPosition((widthCamera / 2)+i, heightCamera / 9);
-            i+=100;
+            m.setPosition((widthCamera / 2) + i, heightCamera / 9);
+            i += 100;
         }
     }
 
@@ -185,16 +188,16 @@ public class SendMail2 implements Screen {
 
         cs.movingCamera();
 
-        for (MailInterface m: this.mails) {
+        for (MailInterface m : this.mails) {
             if (!m.isMoving()) m.setPosition(camera.position.x, heightCamera / 9);
         }
 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(texturebg, 0, 0, widthCamera*10, heightCamera);
-        for (BoxList wbox:boxLists) wbox.draw(batch);
-        for (MailInterface m :this.mails) m.draw(batch);
+        batch.draw(texturebg, 0, 0, widthCamera * 10, heightCamera);
+        for (BoxList wbox : boxLists) wbox.draw(batch);
+        for (MailInterface m : this.mails) m.draw(batch);
         batch.end();
 
     }
@@ -223,6 +226,6 @@ public class SendMail2 implements Screen {
     public void dispose() {
         batch.dispose();
         texturebg.dispose();
-        for (BoxList wbox:boxLists) wbox.dispose();
+        for (BoxList wbox : boxLists) wbox.dispose();
     }
 }
