@@ -78,7 +78,7 @@ public class Splash implements Screen {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        if (time > a+0.25)  a++;
+        if (time > a*0.5)  a++;
         if(a>=anim.length) {
             game.setScreen(new SendMail2(game, mails));
             return;
